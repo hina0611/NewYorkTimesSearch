@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,13 +16,20 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.search.hinaikhan.newyorktimessearch.R;
+import com.search.hinaikhan.newyorktimessearch.mvp.NTYResultActivity;
+import com.search.hinaikhan.newyorktimessearch.mvp.SearchActivity;
+import com.search.hinaikhan.newyorktimessearch.mvp.SearchViewNYT;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.R.attr.x;
 import static com.search.hinaikhan.newyorktimessearch.common.Constant.beginDate;
@@ -95,12 +103,26 @@ public class FilterDialog extends DialogFragment{
     }
 
     private void initView(){
+        SearchSettings searchSettings = ((SearchActivity)getActivity()).getSearchSettings();
+        if (searchSettings.getBeginDate() != null) {
+            date = displayFormat.format(searchSettings.getBeginDate());
+        }
         if(date != null){
             mTvDateFormat.setText(date);
         }else {
             mTvDateFormat.setText(displayFormat.format(calendar.getTime()));
         }
-        mSortOrder.setSelection(order);
+
+        if (SearchSettings.SORT_OLDEST.equalsIgnoreCase(searchSettings.getSortOrder())) {
+            mSortOrder.setSelection(1);
+        } else {
+            mSortOrder.setSelection(0);
+        }
+
+        checkArt = searchSettings.hasSelectedCategory(SearchSettings.CATEGORY_ARTS);
+        checkFAS = searchSettings.hasSelectedCategory(SearchSettings.CATEGORY_FASHION_AND_STYLE);
+        checkSports = searchSettings.hasSelectedCategory(SearchSettings.CATEGORY_SPORTS);
+
         mCheckBoxArt.setChecked(checkArt);
         mCheckBoxFashionAndStyle.setChecked(checkFAS);
         mCheckBoxSports.setChecked(checkSports);
@@ -112,8 +134,7 @@ public class FilterDialog extends DialogFragment{
         mBtnFilterApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                applyFilter();
             }
         });
 
@@ -140,6 +161,27 @@ public class FilterDialog extends DialogFragment{
 
         });
 
+       mCheckBoxArt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+               checkArt = checked;
+           }
+       });
+
+        mCheckBoxFashionAndStyle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                checkFAS = checked;
+            }
+        });
+
+        mCheckBoxSports.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                checkSports = checked;
+            }
+        });
+
     }
 
     @Override
@@ -157,13 +199,28 @@ public class FilterDialog extends DialogFragment{
 
 
     public void applyFilter(){
-        String temp = (mCheckBoxArt.isChecked() ? getString(R.string.art) + " " : " " )
-                + (mCheckBoxFashionAndStyle.isChecked() ? getString(R.string.fashion_and_style) + " "  : " " )
-                + (mCheckBoxSports.isChecked() ? getString(R.string.sports) + " " : "")  ;
 
-        date = mTvDateFormat.getText().toString();
+        String sortOrder = mSortOrder.getSelectedItem().toString();
+        List<String> categories = new ArrayList<String>();
+        if (checkArt) {
+            categories.add(SearchSettings.CATEGORY_ARTS);
+        }
+
+        if (checkFAS) {
+            categories.add(SearchSettings.CATEGORY_FASHION_AND_STYLE);
+        }
+
+        if (checkSports) {
+            categories.add(SearchSettings.CATEGORY_SPORTS);
+        }
+
+        dismiss();
+
+        ((SearchActivity)getActivity()).updateSearchSettings(calendar.getTime(), sortOrder, categories);
 
     }
+
+
 
 
 

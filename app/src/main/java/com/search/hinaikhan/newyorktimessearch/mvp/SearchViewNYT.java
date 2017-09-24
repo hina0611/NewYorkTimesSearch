@@ -1,12 +1,14 @@
 package com.search.hinaikhan.newyorktimessearch.mvp;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +19,15 @@ import com.search.hinaikhan.newyorktimessearch.data.data.request.NYTRequest;
 import com.search.hinaikhan.newyorktimessearch.data.data.response.Docs;
 import com.search.hinaikhan.newyorktimessearch.data.data.response.NYTResponse;
 import com.search.hinaikhan.newyorktimessearch.util.EndlessRecyclerViewScrollListener;
+import com.search.hinaikhan.newyorktimessearch.util.FilterDialog;
+import com.search.hinaikhan.newyorktimessearch.util.SearchSettings;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.search.hinaikhan.newyorktimessearch.common.Constant.beginDate;
-import static com.search.hinaikhan.newyorktimessearch.common.Constant.newsDesk;
-import static com.search.hinaikhan.newyorktimessearch.common.Constant.query;
+import static com.search.hinaikhan.newyorktimessearch.common.Constant.page;
+
 
 /**
  * Created by hinaikhan on 9/19/17.
@@ -40,6 +44,8 @@ public class SearchViewNYT extends Fragment {
     private SearchView mSearchView;
     ItemListAdapter mItemListAdapter;
     private NYTRequest mRequest;
+    private EndlessRecyclerViewScrollListener scrollListener;
+
 
 
     @Nullable
@@ -51,22 +57,33 @@ public class SearchViewNYT extends Fragment {
         onBindView(view);
 //        setOnClickListener();
 
-        StaggeredGridLayoutManager gridLayoutManager =
+        StaggeredGridLayoutManager LayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
+        docsList = new ArrayList<Docs>();
         mItemListAdapter = new ItemListAdapter(mContect, docsList);
         rvRenderList.setAdapter(mItemListAdapter);
-        rvRenderList.setLayoutManager(gridLayoutManager);
-        rvRenderList.addOnScrollListener(new EndlessRecyclerViewScrollListener((StaggeredGridLayoutManager) rvRenderList.getLayoutManager()) {
+        rvRenderList.setLayoutManager(LayoutManager);
+        scrollListener = new EndlessRecyclerViewScrollListener(LayoutManager) {
             @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                fetchNewsItems();
-
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.d(TAG, "OnLoadMore Fetching newsitems for page number - " +page);
+                fetchNewsItems(page);
             }
-        });
 
-            return view;
+        };
+
+        // Adds the scroll listener to RecyclerView
+        rvRenderList.addOnScrollListener(scrollListener);
+
+        //First load
+        scrollListener.onLoadMore(1, docsList.size(), rvRenderList);
+
+        return view;
     }
+
+
+
 
     private void onBindView(View view){
         rvRenderList = (RecyclerView) view.findViewById(R.id.rv_nytList);
@@ -75,31 +92,44 @@ public class SearchViewNYT extends Fragment {
 
     }
 
-    private void fetchNewsItems(){
+    public void refreshView() {
+        docsList.clear();
+        mItemListAdapter.notifyDataSetChanged();
+        fetchNewsItems(1);
+    }
+
+    private void fetchNewsItems(int page){
+        SearchSettings searchSettings = ((SearchActivity)getActivity()).getSearchSettings();
         SearchPresenter presenter = new SearchPresenter(this);
         mRequest = new NYTRequest();
+        mRequest.setPage(1);
+
+        String fq = searchSettings.buildFqQuery();
+        if (fq != null && !fq.isEmpty()) {
+            mRequest.setFq(searchSettings.buildFqQuery());
+        }
+
+        if (SearchSettings.SORT_OLDEST.equalsIgnoreCase(searchSettings.getSortOrder())) {
+            mRequest.setSort("oldest");
+        }
+
+        if (searchSettings.getBeginDate() != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            mRequest.setBegin_date(sdf.format(searchSettings.getBeginDate()));
+        }
+
         presenter.fetchNewsItems(mRequest);
     }
 
     public void renderNewsItems(NYTResponse response) {
-
         if(response != null){
-            mItemListAdapter.setDocs(Arrays.asList(response.getResponse().getDocs()));
-            mItemListAdapter.notifyDataSetChanged();
+            int curSize = mItemListAdapter.getItemCount();
+
+            docsList.addAll(Arrays.asList(response.getResponse().getDocs()));
+
+            mItemListAdapter.notifyItemRangeInserted(curSize, docsList.size() - 1);
         }
     }
 
-//        private void setOnClickListener(){
-//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
-//    }
+
 }

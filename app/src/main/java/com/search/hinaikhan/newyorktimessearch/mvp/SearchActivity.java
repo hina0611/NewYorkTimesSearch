@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.search.hinaikhan.newyorktimessearch.R;
 import com.search.hinaikhan.newyorktimessearch.util.AppUtil;
 import com.search.hinaikhan.newyorktimessearch.util.FilterDialog;
+import com.search.hinaikhan.newyorktimessearch.util.SearchSettings;
+
+import java.util.Date;
+import java.util.List;
 
 import static com.search.hinaikhan.newyorktimessearch.common.Constant.query;
 
@@ -21,6 +25,8 @@ import static com.search.hinaikhan.newyorktimessearch.common.Constant.query;
 public class SearchActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
+    private SearchSettings searchSettings;
+    private SearchViewNYT searchViewNYT;
 
 
     @Override
@@ -38,8 +44,15 @@ public class SearchActivity extends AppCompatActivity {
             bundle = new Bundle();
         }
 
-        AppUtil.displayFragment(new SearchViewNYT(),getSupportFragmentManager(), bundle);
+        searchSettings = new SearchSettings();
+        searchViewNYT = new SearchViewNYT();
 
+        AppUtil.displayFragment(searchViewNYT, getSupportFragmentManager(), bundle);
+
+    }
+
+    public SearchSettings getSearchSettings() {
+        return searchSettings;
     }
 
     @Override
@@ -91,6 +104,13 @@ public class SearchActivity extends AppCompatActivity {
         //TODO Implement me
     }
 
+    public void updateSearchSettings(Date beginDate, String sortOrder, List<String> categories) {
+        searchSettings.setBeginDate(beginDate);
+        searchSettings.setSortOrder(sortOrder);
+        searchSettings.setCategories(categories);
+
+        searchViewNYT.refreshView();
+    }
 
 }
 

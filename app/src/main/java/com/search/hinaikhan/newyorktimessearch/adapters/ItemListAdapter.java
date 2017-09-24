@@ -47,10 +47,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
 
     }
 
-    public void setDocs(List<Docs> docs) {
-        this.docs = docs;
-    }
-
     //involves inflating a layout from XML and returning the holder
     @Override
     public ItemListAdapter.ItemListAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
