@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_margin="26dp"
+    android:layout_height="match_parent">
+
+
+
+<!--relative layout for art-->
+    <RelativeLayout
+        android:id="@+id/relative_art_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView_art"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_action_name" />
+
+        <TextView
+            android:id="@+id/tv_art"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_toRightOf="@id/imageView_art"
+            android:text="@string/art"
+            android:textSize="26sp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_art"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="136dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/tv_art" />
+
+
+    </RelativeLayout>
+
+    <!--relative layout for fashion and art-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/relative_fashion_and_style_container"
+        android:background="@color/cardview_shadow_start_color"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView_fashion_and_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_action_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:id="@+id/tv_fashion_and_style"
+            android:layout_toRightOf="@id/imageView_fashion_and_style"
+            android:textSize="22sp"
+            android:text="@string/fashion_and_style"/>
+
+        <CheckBox
+            android:id="@+id/checkbpx_fashion_and_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_toRightOf="@id/tv_fashion_and_style"
+            android:layout_marginTop="16dp"
+            />
+
+
+        </RelativeLayout>
+
+    <!--relative layout for soprts-->
+
+    <RelativeLayout
+        android:id="@+id/relative_sport_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView_sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_action_name" />
+
+        <TextView
+            android:id="@+id/tv_sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_toRightOf="@id/imageView_sport"
+            android:text="@string/sports"
+            android:textSize="26sp" />
+
+        <CheckBox
+            android:id="@+id/checkbpx_sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="96dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/tv_sport" />
+
+
+    </RelativeLayout>
+
+    <Spinner
+        style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
+        android:id="@+id/filter_sort_order"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:entries="@array/orders"/>
+
+
+    <!--Date-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/relative_date_container"
+        android:background="@color/cardview_shadow_start_color"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_action_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:id="@+id/tv_date"
+            android:layout_toRightOf="@id/imageView_date"
+            android:textSize="26sp"
+            android:text="@string/date"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:id="@+id/tv_date_format"
+            android:layout_toRightOf="@id/tv_date"
+            android:textSize="26sp"
+            android:text="2017/3/27"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:id="@+id/linear_apply_cancel_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/filter_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apply"/>
+
+        <Button
+            android:layout_marginLeft="16dp"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/filter_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
