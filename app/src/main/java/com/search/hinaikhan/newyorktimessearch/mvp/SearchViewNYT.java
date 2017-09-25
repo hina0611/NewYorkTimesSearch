@@ -41,7 +41,6 @@ public class SearchViewNYT extends Fragment {
 
     private View view;
     private RecyclerView rvRenderList;
-    private Context mContect;
     private List<Docs> docsList;
     ItemListAdapter mItemListAdapter;
     private NYTRequest mRequest;
@@ -65,7 +64,7 @@ public class SearchViewNYT extends Fragment {
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         docsList = new ArrayList<Docs>();
-        mItemListAdapter = new ItemListAdapter(mContect, docsList);
+        mItemListAdapter = new ItemListAdapter(getContext(), docsList);
         rvRenderList.setAdapter(mItemListAdapter);
         rvRenderList.setLayoutManager(LayoutManager);
         scrollListener = new EndlessRecyclerViewScrollListener(LayoutManager) {
@@ -82,7 +81,7 @@ public class SearchViewNYT extends Fragment {
 
         //First load
         scrollListener.resetState();
-        scrollListener.onLoadMore(1, docsList.size(), rvRenderList);
+        scrollListener.onLoadMore(0, docsList.size(), rvRenderList);
 
         return view;
     }
@@ -115,7 +114,7 @@ public class SearchViewNYT extends Fragment {
         SearchSettings searchSettings = ((SearchActivity)getActivity()).getSearchSettings();
         SearchPresenter presenter = new SearchPresenter(this);
         mRequest = new NYTRequest();
-        mRequest.setPage(1);
+        mRequest.setPage(page);
 
         String fq = searchSettings.buildFqQuery();
         if (fq != null && !fq.isEmpty()) {
