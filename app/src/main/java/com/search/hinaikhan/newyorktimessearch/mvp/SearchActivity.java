@@ -1,5 +1,6 @@
 package com.search.hinaikhan.newyorktimessearch.mvp;
 
+import android.graphics.Color;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,10 @@ public class SearchActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private SearchSettings searchSettings;
     private SearchViewNYT searchViewNYT;
+    private Date beginDate;
+    String sortOrder;
+    List<String> categories;
+    private String query;
 
 
     @Override
@@ -38,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.showOverflowMenu();
+        mToolbar.setBackgroundColor(Color.parseColor("#B29772"));
 
         Bundle bundle = getIntent().getExtras();
         if(bundle == null){
@@ -65,11 +71,10 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // perform query here
 
-                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
-                // see https://code.google.com/p/android/issues/detail?id=24599
-//                searchView.clearFocus();
+                searchSettings.setQuery(query);
+                searchViewNYT.refreshView();
+
                 return true;
             }
 
@@ -91,17 +96,13 @@ public class SearchActivity extends AppCompatActivity {
                 dialog.show(getFragmentManager(), "SHow Filter");
                 return true;
             case R.id.action_search:
-                onMenuItemSearchQuery();
+                //onMenuItemSearchQuery(query);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
 
-    }
-
-    private void onMenuItemSearchQuery(){
-        //TODO Implement me
     }
 
     public void updateSearchSettings(Date beginDate, String sortOrder, List<String> categories) {

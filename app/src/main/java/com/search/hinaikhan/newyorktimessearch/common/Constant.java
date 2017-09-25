@@ -14,4 +14,6 @@ public class Constant {
     public final static String sort = "sort";
     public final static String page = "page";
     public final static String newsDesk = "news_desk";
+    public  static final int SPLASH_DELAY = 3000; // 3 seconds delay
+
 }

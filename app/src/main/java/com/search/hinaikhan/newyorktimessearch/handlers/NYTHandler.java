@@ -47,6 +47,8 @@ public class NYTHandler {
             builder.addQueryParameter("fq", NYTRequest.getFq());
         }
 
+
+
         builder.addQueryParameter("api-key", presenter.getmViewSearch().getResources().getString(R.string.api_key));
 
         String url = builder.build().toString();

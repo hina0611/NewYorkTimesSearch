@@ -12,15 +12,12 @@ import com.search.hinaikhan.newyorktimessearch.handlers.NYTHandler;
 public class SearchPresenter {
 
     private SearchViewNYT mSearchView;
-    private NTYResultActivity mSearchACtivityResult;
 
     public SearchPresenter(SearchViewNYT mSearchView){
        this.mSearchView = mSearchView;
     }
 
-    public SearchPresenter(NTYResultActivity mSearchACtivityResult) {
-        this.mSearchACtivityResult = mSearchACtivityResult;
-    }
+
 
 
     public SearchViewNYT getmViewSearch(){
@@ -38,10 +35,7 @@ public class SearchPresenter {
         }
     }
 
-//    public void renderNewsResult(Docs docs){
-//        NYTHandler handler = new NYTHandler();
-//        handler.fetchNewsItems(docs);
-//    }
+
 
     
 }

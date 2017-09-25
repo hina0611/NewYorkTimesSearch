@@ -10,18 +10,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
         app:titleTextColor="@android:color/white">
 
+
         <TextView
+            android:id="@+id/tv_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_heading"
-            android:textColor="#123456"
-            android:text="jjjjj"
-            android:textSize="20sp"/>
+            android:fontFamily="monospace"
+            android:text="New York Times"
+            android:textColor="#4d3300"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
 
     </android.support.v7.widget.Toolbar>

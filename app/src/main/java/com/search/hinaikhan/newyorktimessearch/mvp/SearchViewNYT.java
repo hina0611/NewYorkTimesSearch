@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.search.hinaikhan.newyorktimessearch.R;
 import com.search.hinaikhan.newyorktimessearch.adapters.ItemListAdapter;
@@ -45,6 +46,9 @@ public class SearchViewNYT extends Fragment {
     ItemListAdapter mItemListAdapter;
     private NYTRequest mRequest;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private ProgressBar pbLoading;
+
+
 
 
 
@@ -77,6 +81,7 @@ public class SearchViewNYT extends Fragment {
         rvRenderList.addOnScrollListener(scrollListener);
 
         //First load
+        scrollListener.resetState();
         scrollListener.onLoadMore(1, docsList.size(), rvRenderList);
 
         return view;
@@ -87,7 +92,7 @@ public class SearchViewNYT extends Fragment {
 
     private void onBindView(View view){
         rvRenderList = (RecyclerView) view.findViewById(R.id.rv_nytList);
-//        mSearchView = (SearchView) view.findViewById(R.id.inputSearch);
+        pbLoading = (ProgressBar) view.findViewById(R.id.pbLoading);
 
 
     }
@@ -95,10 +100,12 @@ public class SearchViewNYT extends Fragment {
     public void refreshView() {
         docsList.clear();
         mItemListAdapter.notifyDataSetChanged();
-        fetchNewsItems(1);
+        scrollListener.resetState();
+        scrollListener.onLoadMore(1, docsList.size(), rvRenderList);
     }
 
     private void fetchNewsItems(int page){
+        pbLoading.setVisibility(View.VISIBLE);
         SearchSettings searchSettings = ((SearchActivity)getActivity()).getSearchSettings();
         SearchPresenter presenter = new SearchPresenter(this);
         mRequest = new NYTRequest();
@@ -106,7 +113,7 @@ public class SearchViewNYT extends Fragment {
 
         String fq = searchSettings.buildFqQuery();
         if (fq != null && !fq.isEmpty()) {
-            mRequest.setFq(searchSettings.buildFqQuery());
+            mRequest.setFq(fq);
         }
 
         if (SearchSettings.SORT_OLDEST.equalsIgnoreCase(searchSettings.getSortOrder())) {
@@ -118,10 +125,17 @@ public class SearchViewNYT extends Fragment {
             mRequest.setBegin_date(sdf.format(searchSettings.getBeginDate()));
         }
 
+        if(searchSettings.getQuery() != null && !searchSettings.getQuery().isEmpty()){
+            mRequest.setQ(searchSettings.getQuery());
+
+        }
+
         presenter.fetchNewsItems(mRequest);
     }
 
     public void renderNewsItems(NYTResponse response) {
+        pbLoading.setVisibility(View.GONE);
+
         if(response != null){
             int curSize = mItemListAdapter.getItemCount();
 

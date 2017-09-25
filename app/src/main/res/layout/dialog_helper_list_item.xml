@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_margin="26dp"
+    android:background="#ffcc99"
     android:layout_height="match_parent">
-
 
 
 <!--relative layout for art-->
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/cardview_shadow_start_color"
+        android:background="#cc9766"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_action_name" />
+            app:srcCompat="@drawable/icon_art" />
 
         <TextView
             android:id="@+id/tv_art"
@@ -31,6 +31,7 @@
             android:layout_margin="16dp"
             android:layout_toRightOf="@id/imageView_art"
             android:text="@string/art"
+            android:textColor="#660033"
             android:textSize="26sp" />
 
         <CheckBox
@@ -49,8 +50,8 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:id="@+id/relative_fashion_and_style_container"
-        android:background="@color/cardview_shadow_start_color"
         android:layout_height="wrap_content"
+        android:background="#cc9766"
         android:layout_marginBottom="16dp"
         android:weightSum="1">
 
@@ -59,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_action_name" />
+            app:srcCompat="@drawable/icon_fas" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,13 +69,14 @@
             android:id="@+id/tv_fashion_and_style"
             android:layout_toRightOf="@id/imageView_fashion_and_style"
             android:textSize="22sp"
+            android:textColor="#660033"
             android:text="@string/fashion_and_style"/>
 
         <CheckBox
             android:id="@+id/checkbpx_fashion_and_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
+            android:layout_marginLeft="56dp"
             android:layout_toRightOf="@id/tv_fashion_and_style"
             android:layout_marginTop="16dp"
             />
@@ -89,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/cardview_shadow_start_color"
+        android:background="#cc9766"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -98,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_action_name" />
+            app:srcCompat="@drawable/icon_sport" />
 
         <TextView
             android:id="@+id/tv_sport"
@@ -107,6 +109,7 @@
             android:layout_margin="16dp"
             android:layout_toRightOf="@id/imageView_sport"
             android:text="@string/sports"
+            android:textColor="#660033"
             android:textSize="26sp" />
 
         <CheckBox
@@ -136,8 +139,8 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:id="@+id/relative_date_container"
-        android:background="@color/cardview_shadow_start_color"
         android:layout_height="wrap_content"
+        android:background="#cc9766"
         android:layout_marginBottom="16dp"
         android:weightSum="1">
 
@@ -146,13 +149,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_action_name" />
+            app:srcCompat="@drawable/icon_calender" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:id="@+id/tv_date"
+            android:textColor="#660033"
             android:layout_toRightOf="@id/imageView_date"
             android:textSize="26sp"
             android:text="@string/date"/>
@@ -164,6 +168,7 @@
             android:id="@+id/tv_date_format"
             android:layout_toRightOf="@id/tv_date"
             android:textSize="26sp"
+            android:textColor="#800040"
             android:text="2017/3/27"/>
 
 
@@ -176,29 +181,29 @@
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
-        android:gravity="right"
-        android:orientation="horizontal"
         android:id="@+id/linear_apply_cancel_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
 
         <Button
-            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:id="@+id/filter_apply"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/apply"/>
+            android:textSize="20sp"
+            android:text="@string/apply" />
 
         <Button
-            android:layout_marginLeft="16dp"
-            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:id="@+id/filter_cancel"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"/>
+            android:layout_marginLeft="16dp"
+            android:textSize="20sp"
+            android:text="@string/cancel" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>

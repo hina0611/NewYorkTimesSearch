@@ -21,14 +21,25 @@ public class SearchSettings {
     private String sortOrder;
     private Date beginDate;
 
+    private String query;
+
     public SearchSettings() {
 
     }
 
-    public SearchSettings(List<String> categories, String sortOrder, Date beginDate) {
+    public SearchSettings(List<String> categories, String sortOrder, Date beginDate, String query) {
         this.categories = categories;
         this.sortOrder = sortOrder;
         this.beginDate = beginDate;
+        this.query = query;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 
     public List<String> getCategories() {
@@ -64,6 +75,13 @@ public class SearchSettings {
                 sb.append("\"").append(category).append("\" ");
             }
             sb.append(")");
+        }
+
+        if(getQuery() != null && !getQuery().isEmpty()){
+            if (sb.length() > 0) {
+                sb.append(" AND ");
+            }
+            sb.append(getQuery());
         }
 
         return sb.toString();
