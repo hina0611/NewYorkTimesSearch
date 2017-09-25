@@ -19,6 +19,8 @@
             android:id="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_16"
             android:gravity="center_horizontal"
             android:text="1231" />
 

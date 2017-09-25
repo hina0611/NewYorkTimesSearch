@@ -8,13 +8,31 @@ import com.search.hinaikhan.newyorktimessearch.R;
 import com.search.hinaikhan.newyorktimessearch.data.data.request.NYTRequest;
 import com.search.hinaikhan.newyorktimessearch.data.data.response.NYTResponse;
 import com.search.hinaikhan.newyorktimessearch.mvp.SearchPresenter;
+import com.search.hinaikhan.newyorktimessearch.network.NYTApiInterface;
+
 import java.io.IOException;
-import okhttp3.Call;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+/*import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.Response;*/
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
+
+import static android.R.attr.apiKey;
+import static com.search.hinaikhan.newyorktimessearch.common.Constant.beginDate;
+import static com.search.hinaikhan.newyorktimessearch.common.Constant.page;
+import static com.search.hinaikhan.newyorktimessearch.common.Constant.sort;
 
 
 /**
@@ -28,9 +46,10 @@ public class NYTHandler {
      * Sample Url:
      *   https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20160112&sort=oldest&fq=news_desk:(%22Education%22%20%22Health%22)&api-key=4927c2f199d44a01a6775b67f9cc2948
      * @param presenter
-     * @param NYTRequest
+     * @param //NYTRequest
      */
-    public void fetchNewsItems(final SearchPresenter presenter, final NYTRequest NYTRequest) {
+    //use okhttp
+   /* public void fetchNewsItemsOld(final SearchPresenter presenter, final NYTRequest NYTRequest) {
 
         OkHttpClient client = new OkHttpClient();
         String baseUrl = presenter.getmViewSearch().getResources().getString(R.string.search_url);
@@ -85,6 +104,39 @@ public class NYTHandler {
                 }
             }
         });
+    }*/
+
+    //New Implementation for Retrofit
+    public void fetchNewsItems(final SearchPresenter presenter, final NYTRequest nytRequest) {
+
+        Gson gson = new GsonBuilder().create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(presenter.getmViewSearch().getResources().getString(R.string.search_url))
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        NYTApiInterface apiService = retrofit.create(NYTApiInterface.class);
+
+
+        Call<NYTResponse> call = apiService.getNewsItems(presenter.getmViewSearch().getResources().getString(R.string.api_key),
+                                                        nytRequest.getPage() + "", nytRequest.getBegin_date(), nytRequest.getSort(),
+                                                        nytRequest.getFq());
+
+        call.enqueue(new Callback<NYTResponse>() {
+            @Override
+            public void onResponse(Call<NYTResponse> call, Response<NYTResponse> response) {
+                int statusCode = response.code();
+                NYTResponse nytResponse = response.body();
+                presenter.renderNewsItems(nytResponse);
+            }
+
+            @Override
+            public void onFailure(Call<NYTResponse> call, Throwable t) {
+                // Log error here since request failed
+            }
+        });
+
     }
 }
 

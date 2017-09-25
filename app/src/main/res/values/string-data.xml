@@ -2,7 +2,7 @@
 <resources>
     <string name="api_key">4927c2f199d44a01a6775b67f9cc2948</string>
     <string name="search_url">
-        <![CDATA[https://api.nytimes.com/svc/search/v2/articlesearch.json]]>
+        <![CDATA[https://api.nytimes.com/svc/search/v2/]]>
     </string>
     <string name="nytimes_url">
         <![CDATA[http://www.nytimes.com/]]>

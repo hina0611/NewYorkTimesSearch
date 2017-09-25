@@ -1,18 +1,14 @@
 package com.search.hinaikhan.newyorktimessearch.adapters;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,8 +119,6 @@ public class ItemListAdapter extends RecyclerView.Adapter {
 
 
         }
-
-
 
 
 //        mTvNewsContent.setText(document.getSnippet());
