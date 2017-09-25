@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">22sp</dimen>
+    <dimen name="splash_margin_top">185dp</dimen>
+    <dimen name="splash_marginLeft">16dp</dimen>
+    <dimen name="dialog_helper_layout_margin">26dp</dimen>
+    <dimen name="text_size_dialog">26sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="image_height">100dp</dimen>
+    <dimen name="padding_6">6dp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+
+
+
+
+    layout_margin
+</resources>

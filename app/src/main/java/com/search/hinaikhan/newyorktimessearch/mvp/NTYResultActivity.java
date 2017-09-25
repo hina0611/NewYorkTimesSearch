@@ -1,14 +1,10 @@
 package com.search.hinaikhan.newyorktimessearch.mvp;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,23 +12,12 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
-import com.bumptech.glide.Glide;
 import com.search.hinaikhan.newyorktimessearch.R;
-import com.search.hinaikhan.newyorktimessearch.data.data.request.NYTRequest;
 import com.search.hinaikhan.newyorktimessearch.data.data.response.Docs;
-import com.search.hinaikhan.newyorktimessearch.data.data.response.NYTResponse;
-import com.search.hinaikhan.newyorktimessearch.util.SearchSettings;
 
-import java.util.List;
-
-import static android.R.id.list;
 
 /**
  * Created by hinaikhan on 9/21/17.
@@ -43,8 +28,7 @@ public class NTYResultActivity  extends AppCompatActivity {
     private static final String TAG = NTYResultActivity.class.getSimpleName();
 
     private Docs docsResponse;
-    private Context mContext;
-    private List<Docs> docs;
+    private boolean launchedUrl= false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,19 +59,6 @@ public class NTYResultActivity  extends AppCompatActivity {
 //        myWebView.getSettings().setUseWideViewPort(true);
 //        // Zoom out if the content width is greater than the width of the viewport
 //        myWebView.getSettings().setLoadWithOverviewMode(true);
-
-
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-
-        PendingIntent pendingIntent = getPendingIntent(docsResponse.getWeb_url());
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_arrow_up);
-        builder.setActionButton(bitmap, "Share", pendingIntent);
-        CustomTabsIntent intentCustomTab = builder.build();
-        intentCustomTab.launchUrl(NTYResultActivity.this, Uri.parse(docsResponse.getWeb_url()));
-        builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorAccent));
-
-
-
 
     }
 
@@ -137,7 +108,24 @@ public class NTYResultActivity  extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        if (launchedUrl) {
+            finish();
+        } else {
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+
+            PendingIntent pendingIntent = getPendingIntent(docsResponse.getWeb_url());
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.share_icon);
+            builder.setActionButton(bitmap, "Share", pendingIntent);
+            CustomTabsIntent intentCustomTab = builder.build();
+            intentCustomTab.launchUrl(NTYResultActivity.this, Uri.parse(docsResponse.getWeb_url()));
+            builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorAccent));
+            launchedUrl = true;
+        }
+    }
 
 
 }

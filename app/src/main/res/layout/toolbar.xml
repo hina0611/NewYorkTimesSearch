@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:text="New York Times"
-            android:textColor="#4d3300"
-            android:textSize="28sp"
+            android:textColor="@color/color_toolbar"
+            android:textSize="@dimen/text_size"
             android:textStyle="bold" />
 
 

@@ -28,9 +28,6 @@ public class SearchActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private SearchSettings searchSettings;
     private SearchViewNYT searchViewNYT;
-    private Date beginDate;
-    String sortOrder;
-    List<String> categories;
     private String query;
 
 
@@ -93,10 +90,9 @@ public class SearchActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.mi_Filter:
                 FilterDialog dialog = new FilterDialog();
-                dialog.show(getFragmentManager(), "SHow Filter");
+                dialog.show(getFragmentManager(), "Show Filter");
                 return true;
             case R.id.action_search:
-                //onMenuItemSearchQuery(query);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

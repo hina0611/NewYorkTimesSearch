@@ -13,14 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.search.hinaikhan.newyorktimessearch.R;
 import com.search.hinaikhan.newyorktimessearch.adapters.ItemListAdapter;
 import com.search.hinaikhan.newyorktimessearch.data.data.request.NYTRequest;
 import com.search.hinaikhan.newyorktimessearch.data.data.response.Docs;
 import com.search.hinaikhan.newyorktimessearch.data.data.response.NYTResponse;
+import com.search.hinaikhan.newyorktimessearch.util.AppUtil;
 import com.search.hinaikhan.newyorktimessearch.util.EndlessRecyclerViewScrollListener;
-import com.search.hinaikhan.newyorktimessearch.util.FilterDialog;
 import com.search.hinaikhan.newyorktimessearch.util.SearchSettings;
 
 import java.util.ArrayList;
@@ -42,7 +43,6 @@ public class SearchViewNYT extends Fragment {
     private RecyclerView rvRenderList;
     private Context mContect;
     private List<Docs> docsList;
-    private SearchView mSearchView;
     ItemListAdapter mItemListAdapter;
     private NYTRequest mRequest;
     private EndlessRecyclerViewScrollListener scrollListener;
@@ -87,14 +87,20 @@ public class SearchViewNYT extends Fragment {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(!AppUtil.isNetworkAvailable(getContext()) || !AppUtil.isOnline()) {
+            Toast.makeText(getContext(), "No Internet available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
 
     private void onBindView(View view){
         rvRenderList = (RecyclerView) view.findViewById(R.id.rv_nytList);
         pbLoading = (ProgressBar) view.findViewById(R.id.pbLoading);
-
-
     }
 
     public void refreshView() {
@@ -141,7 +147,8 @@ public class SearchViewNYT extends Fragment {
 
             docsList.addAll(Arrays.asList(response.getResponse().getDocs()));
 
-            mItemListAdapter.notifyItemRangeInserted(curSize, docsList.size() - 1);
+            //mItemListAdapter.notifyItemRangeInserted(curSize, docsList.size() - 1);
+            mItemListAdapter.notifyDataSetChanged();
         }
     }
 

@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,17 +45,13 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     private final static String TAG = ItemListAdapter.class.getSimpleName();
 
     private Context mContext;
-    private LayoutInflater mInflater;
     private View view;
     private List<Docs> docs;
-    private List<Keywords> keywordses;
-    private List<MultiMedia> multiMedias;
     private CardView mCardViewItem;
     private Button mBtnApplyTags;
 
     public ImageView mImgvNewsImage;
     public TextView mTvNewsContent;
-    int requestCode = 100;
 
 
     public ItemListAdapter(Context mContext, List<Docs> docs) {
@@ -94,36 +91,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
         mCardViewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(mContext, NTYResultActivity.class);
                 intent.putExtra("NEWS_RESPONSE" , document);
                 mContext.startActivity(intent);
 
-//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//
-//                PendingIntent pendingIntent = getPendingIntent(document.getWeb_url());
-////                PendingIntent pendingIntent3 = PendingIntent.getActivity(mContext,
-////                        requestCode,
-////                        intent,PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.icon_arrow_up);
-//                builder.setActionButton(bitmap, "Share", pendingIntent);
-//                CustomTabsIntent intentCustomTab = builder.build();
-//                intentCustomTab.launchUrl((Activity) mContext, Uri.parse(document.getWeb_url()));
-
-
-
-            }
+        }
         });
 
-
-
-    }
-
-    private PendingIntent getPendingIntent(String url) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, url);
-        return PendingIntent.getActivity(mContext, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     @Override

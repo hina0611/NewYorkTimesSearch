@@ -15,24 +15,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.search.hinaikhan.newyorktimessearch.R;
-import com.search.hinaikhan.newyorktimessearch.mvp.NTYResultActivity;
 import com.search.hinaikhan.newyorktimessearch.mvp.SearchActivity;
-import com.search.hinaikhan.newyorktimessearch.mvp.SearchViewNYT;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static android.R.attr.x;
-import static com.search.hinaikhan.newyorktimessearch.common.Constant.beginDate;
 
 /**
  * Created by hinaikhan on 9/21/17.

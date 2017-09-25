@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_margin="26dp"
-    android:background="#ffcc99"
+    android:layout_margin="@dimen/dialog_helper_layout_margin"
+    android:background="@color/color_dialog"
     android:layout_height="match_parent">
 
 
@@ -12,8 +12,8 @@
         android:id="@+id/relative_art_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="#cc9766"
+        android:layout_marginBottom="@dimen/splash_marginLeft"
+        android:background="@color/color_dialog_color"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -31,14 +31,14 @@
             android:layout_margin="16dp"
             android:layout_toRightOf="@id/imageView_art"
             android:text="@string/art"
-            android:textColor="#660033"
-            android:textSize="26sp" />
+            android:textColor="@color/dialog_text_color"
+            android:textSize="@dimen/text_size_dialog" />
 
         <CheckBox
             android:id="@+id/checkbox_art"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="136dp"
+            android:layout_marginLeft="166dp"
             android:layout_marginTop="16dp"
             android:layout_toRightOf="@id/tv_art" />
 
@@ -51,7 +51,7 @@
         android:orientation="horizontal"
         android:id="@+id/relative_fashion_and_style_container"
         android:layout_height="wrap_content"
-        android:background="#cc9766"
+        android:background="@color/color_dialog_color"
         android:layout_marginBottom="16dp"
         android:weightSum="1">
 
@@ -68,8 +68,8 @@
             android:layout_marginTop="16dp"
             android:id="@+id/tv_fashion_and_style"
             android:layout_toRightOf="@id/imageView_fashion_and_style"
-            android:textSize="22sp"
-            android:textColor="#660033"
+            android:textSize="@dimen/text_size_dialog"
+            android:textColor="@color/dialog_text_color"
             android:text="@string/fashion_and_style"/>
 
         <CheckBox
@@ -91,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="#cc9766"
+        android:background="@color/color_dialog_color"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -109,14 +109,14 @@
             android:layout_margin="16dp"
             android:layout_toRightOf="@id/imageView_sport"
             android:text="@string/sports"
-            android:textColor="#660033"
-            android:textSize="26sp" />
+            android:textColor="@color/dialog_text_color"
+            android:textSize="@dimen/text_size_dialog"/>
 
         <CheckBox
             android:id="@+id/checkbpx_sport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="96dp"
+            android:layout_marginLeft="126dp"
             android:layout_marginTop="16dp"
             android:layout_toRightOf="@id/tv_sport" />
 
@@ -140,7 +140,7 @@
         android:orientation="horizontal"
         android:id="@+id/relative_date_container"
         android:layout_height="wrap_content"
-        android:background="#cc9766"
+        android:background="@color/color_dialog_color"
         android:layout_marginBottom="16dp"
         android:weightSum="1">
 
@@ -156,9 +156,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:id="@+id/tv_date"
-            android:textColor="#660033"
+            android:textColor="@color/dialog_text_color"
             android:layout_toRightOf="@id/imageView_date"
-            android:textSize="26sp"
+            android:textSize="@dimen/text_size_dialog"
             android:text="@string/date"/>
 
         <TextView
@@ -167,7 +167,7 @@
             android:layout_margin="16dp"
             android:id="@+id/tv_date_format"
             android:layout_toRightOf="@id/tv_date"
-            android:textSize="26sp"
+            android:textSize="@dimen/text_size_dialog"
             android:textColor="#800040"
             android:text="2017/3/27"/>
 
@@ -192,7 +192,7 @@
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_20"
             android:text="@string/apply" />
 
         <Button
@@ -200,8 +200,8 @@
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:textSize="20sp"
+            android:layout_marginLeft="@dimen/splash_marginLeft"
+            android:textSize="@dimen/text_size_20"
             android:text="@string/cancel" />
     </LinearLayout>
 
